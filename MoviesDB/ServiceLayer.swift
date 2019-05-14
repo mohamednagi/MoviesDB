@@ -8,6 +8,8 @@
 
 import UIKit
 
+let defaults = UserDefaults.standard
+
 class ServiceLayer: NSObject {
     
     
@@ -23,26 +25,22 @@ class ServiceLayer: NSObject {
                 
                 guard let data = data else {return}
                 do {
-                    
-                    let json = try JSONDecoder().decode(WebData.self, from: data)
-                    print(json)
-                    
-//                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] else {return}
-//                    guard let movies = json["results"] as? [[String:Any]] else {return}
-//                    for movie in movies {
-//                        guard let title = movie["title"] as? String else {return}
-//                        guard let vote_average = movie["vote_average"] as? Double else {return}
-//                        guard let poster_path = movie["poster_path"] as? String else {return}
-//                        guard let release_date = movie["release_date"] as? String else {return}
-//                        guard let id = movie["id"] as? Int else {return}
-//                        guard let popularity = movie["popularity"] as? Double else {return}
-//                        guard let overview = movie["overview"] as? String else {return}
-//                        guard let vote_count = movie["vote_count"] as? Int else {return}
-//
-//                        let object = MovieModel(title: title, vote_average: vote_average, poster_path: "http://image.tmdb.org/t/p/w780/\(poster_path)", release_date: release_date,id: id, overview: overview, popularity: popularity, vote_count: vote_count)
-//                        oneMovie.append(object)
-//                    }
-//                    completionHandler(oneMovie)
+                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] else {return}
+                    guard let movies = json["results"] as? [[String:Any]] else {return}
+                    for movie in movies {
+                        guard let title = movie["title"] as? String else {return}
+                        guard let vote_average = movie["vote_average"] as? Double else {return}
+                        guard let poster_path = movie["poster_path"] as? String else {return}
+                        guard let release_date = movie["release_date"] as? String else {return}
+                        guard let id = movie["id"] as? Int else {return}
+                        guard let popularity = movie["popularity"] as? Double else {return}
+                        guard let overview = movie["overview"] as? String else {return}
+                        guard let vote_count = movie["vote_count"] as? Int else {return}
+
+                        let object = MovieModel(title: title, vote_average: vote_average, poster_path: "http://image.tmdb.org/t/p/w780/\(poster_path)", release_date: release_date,id: id, overview: overview, popularity: popularity, vote_count: vote_count)
+                        oneMovie.append(object)
+                    }
+                    completionHandler(oneMovie)
                 }catch {
                     print(error.localizedDescription)
                 }
@@ -54,5 +52,34 @@ class ServiceLayer: NSObject {
         
     }
     
+    class func walkMeHome(view:UIViewController) {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        guard let rootViewController = window.rootViewController else {return}
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let homeView = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        homeView.view.frame = rootViewController.view.frame
+        homeView.view.layoutIfNeeded()
+        
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromRight, animations: {
+            window.rootViewController = homeView
+        }, completion: { completed in
+            // maybe do something here
+        })
+    }
+    
+     class func logMeOut() {
+        guard let window = UIApplication.shared.keyWindow else {return}
+        guard let rootViewController = window.rootViewController else {return}
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        LoginViewController.view.frame = rootViewController.view.frame
+        LoginViewController.view.layoutIfNeeded()
+        
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+            window.rootViewController = LoginViewController
+        }, completion: { completed in
+            // maybe do something here
+        })
+    }
 
 }
