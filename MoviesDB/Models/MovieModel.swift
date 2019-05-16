@@ -8,6 +8,8 @@
 
 import Foundation
 
+// model for whole movie info to present in cell and movie view
+
 struct MovieModel {
     let title:String?
     let vote_average:Double?

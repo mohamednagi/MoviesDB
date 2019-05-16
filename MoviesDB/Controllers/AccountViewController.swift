@@ -17,27 +17,27 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        // making some rounded corners
         logoutBu.layer.cornerRadius = 6
         
+        // checking for cached data first
         guard let userEmailText = defaults.value(forKey: "userEmail") as? String else {return}
         userEmail.text = userEmailText
-        
-//        if defaults.value(forKey: "userEmail") != nil {
-//            userEmail.text = defaults.val
-//        }
     }
     
+    // occurs when user click logout button
     @IBAction func logoutAction(_ sender: UIButton) {
+        // clearing cached data (userDefaults)
         let dictionary = defaults.dictionaryRepresentation()
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
+        // logging out from firebase to expire user
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            // directing user to login view
             ServiceLayer.logMeOut()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
