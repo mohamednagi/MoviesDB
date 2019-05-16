@@ -12,6 +12,7 @@ let defaults = UserDefaults.standard
 
 class ServiceLayer: NSObject {
     
+    
     // get all top related movies from API with urlSession and JsonSerialization
     // not with codable protocol because we have discussed it in the interview
     class func getMovies(completionHandler: @escaping (_ array:[MovieModel]) -> ()) {
@@ -20,7 +21,7 @@ class ServiceLayer: NSObject {
         
         let topRatedMoviesUrlString = "https://api.themoviedb.org/3/movie/top_rated?api_key=dbbd139cd20c1999dffaa2eed72d5a86"
         guard let topRatedMoviesUrl = URL(string: topRatedMoviesUrlString) else {return}
-        
+
         URLSession.shared.dataTask(with: topRatedMoviesUrl) { (data, response, error) in
             guard let httpResponse: HTTPURLResponse = response as? HTTPURLResponse else {return}
             // checking if status OK

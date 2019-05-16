@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
          Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 // caching logged user info locally
-                UserDefaults.standard.set(user?.email, forKey: "userEmail")
+                defaults.set(user?.email, forKey: "userEmail")
                 ServiceLayer.walkMeHome(view: self)
             }
         })

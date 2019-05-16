@@ -33,8 +33,8 @@ class MovieInfoView: UIViewController {
         movieVoteAverage.text = String(describing: clickedMovie.vote_average!)
         
         // checking fot cached data first
-        if UserDefaults.standard.value(forKey: clickedMovie.poster_path ?? "") != nil {
-            let imageData = UserDefaults.standard.value(forKey: clickedMovie.poster_path ?? "")
+        if defaults.value(forKey: clickedMovie.poster_path ?? "") != nil {
+            let imageData = defaults.value(forKey: clickedMovie.poster_path ?? "")
             DispatchQueue.main.async {
                 self.movieImage.image = UIImage(data: imageData as! Data)
             }

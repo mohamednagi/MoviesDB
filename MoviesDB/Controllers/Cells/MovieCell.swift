@@ -19,8 +19,8 @@ class MovieCell: UITableViewCell {
     func setupMoviesCell(indexpath:IndexPath) {
         ServiceLayer.getMovies { (returnedMovies) in
            // checking for cached data first
-            if UserDefaults.standard.value(forKey: returnedMovies[indexpath.row].poster_path ?? "" ) != nil {
-                let movieImage = UserDefaults.standard.value(forKey: returnedMovies[indexpath.row].poster_path ?? "")
+            if defaults.value(forKey: returnedMovies[indexpath.row].poster_path ?? "" ) != nil {
+                let movieImage = defaults.value(forKey: returnedMovies[indexpath.row].poster_path ?? "")
                 DispatchQueue.main.async {
                     self.movieImage.image = UIImage(data:movieImage as! Data)
                 }
@@ -36,7 +36,7 @@ class MovieCell: UITableViewCell {
                             DispatchQueue.main.async {
                                 self.movieImage.image = UIImage(data: data)
                                 let imageData = self.movieImage.image!.jpegData(compressionQuality: 1.0)
-                                UserDefaults.standard.setValue(imageData, forKey: "\(imagePath)")
+                                defaults.setValue(imageData, forKey: "\(imagePath)")
                             }
                             
                         }else {
