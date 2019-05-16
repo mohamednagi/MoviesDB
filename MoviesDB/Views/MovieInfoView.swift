@@ -18,6 +18,7 @@ class MovieInfoView: UIViewController {
     @IBOutlet weak var movieVoteCount: UILabel!
     @IBOutlet weak var moviePopularity: UILabel!
     @IBOutlet weak var movieVoteAverage: UILabel!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     var clickedMovie: MovieModel! = nil //object represent the selected movie from past view
     
@@ -41,6 +42,7 @@ class MovieInfoView: UIViewController {
         }else {
             // get the image from past view
         guard let imageUrl = URL(string: clickedMovie.poster_path!) else {return}
+            indicator.startAnimating() // start loading 
         URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
             guard let httpResponse: HTTPURLResponse = response as? HTTPURLResponse else {return}
             if httpResponse.statusCode == 200 {
@@ -48,6 +50,8 @@ class MovieInfoView: UIViewController {
                     guard let data = data else {return}
                     DispatchQueue.main.async {
                         self.movieImage.image = UIImage(data:data)
+                        self.indicator.stopAnimating() // stop loader
+                        self.indicator.isHidden = true // hide loader
                     }
                 }else {
                     print(error?.localizedDescription as Any)

@@ -50,6 +50,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Z64-Yb-dMR">
+                                                    <rect key="frame" x="81" y="97.5" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="7MY-3q-Pwd" firstAttribute="leading" secondItem="TWN-ad-TYS" secondAttribute="leading" id="18w-Xa-EyS"/>
@@ -60,14 +63,17 @@
                                                 <constraint firstItem="TWN-ad-TYS" firstAttribute="width" secondItem="zSx-ia-qxE" secondAttribute="width" id="Nyc-hC-zBi"/>
                                                 <constraint firstItem="7MY-3q-Pwd" firstAttribute="width" secondItem="TWN-ad-TYS" secondAttribute="width" id="Q56-Wl-Q50"/>
                                                 <constraint firstItem="p51-2T-dSF" firstAttribute="width" secondItem="amE-6q-vjo" secondAttribute="width" multiplier="0.4" id="TxD-Vi-DGz"/>
+                                                <constraint firstItem="Z64-Yb-dMR" firstAttribute="centerY" secondItem="p51-2T-dSF" secondAttribute="centerY" id="Uta-JY-m1X"/>
                                                 <constraint firstAttribute="bottom" secondItem="p51-2T-dSF" secondAttribute="bottom" constant="16" id="cb1-iD-Ayu"/>
                                                 <constraint firstItem="p51-2T-dSF" firstAttribute="leading" secondItem="amE-6q-vjo" secondAttribute="leading" constant="16" id="krG-B9-7ez"/>
                                                 <constraint firstItem="TWN-ad-TYS" firstAttribute="leading" secondItem="zSx-ia-qxE" secondAttribute="leading" id="qkQ-1y-BwT"/>
                                                 <constraint firstAttribute="trailing" secondItem="zSx-ia-qxE" secondAttribute="trailing" constant="5" id="rJO-iF-QaR"/>
+                                                <constraint firstItem="Z64-Yb-dMR" firstAttribute="centerX" secondItem="p51-2T-dSF" secondAttribute="centerX" id="s67-J9-TNd"/>
                                                 <constraint firstItem="zSx-ia-qxE" firstAttribute="top" secondItem="p51-2T-dSF" secondAttribute="top" id="x9N-Kr-dRL"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="indicator" destination="Z64-Yb-dMR" id="f0W-EE-dk2"/>
                                             <outlet property="movieImage" destination="p51-2T-dSF" id="Nx1-84-Zcu"/>
                                             <outlet property="movieReleaseDate" destination="7MY-3q-Pwd" id="nZj-Gr-fqo"/>
                                             <outlet property="movieTitle" destination="zSx-ia-qxE" id="p3I-WD-XqF"/>
@@ -238,15 +244,20 @@
                                             <constraint firstItem="oL3-wM-gja" firstAttribute="centerY" secondItem="diW-j4-x2z" secondAttribute="centerY" constant="-20" id="zym-a5-c0R"/>
                                         </constraints>
                                     </view>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wDl-Pf-aVf">
+                                        <rect key="frame" x="177.5" y="122" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="diW-j4-x2z" secondAttribute="bottom" id="3cP-ty-Rek"/>
+                                    <constraint firstItem="wDl-Pf-aVf" firstAttribute="centerY" secondItem="fBl-BX-czm" secondAttribute="centerY" id="6mz-l8-dSH"/>
                                     <constraint firstItem="diW-j4-x2z" firstAttribute="width" secondItem="KCh-i0-MCH" secondAttribute="width" id="9LI-bW-h7l"/>
                                     <constraint firstItem="diW-j4-x2z" firstAttribute="top" secondItem="KCh-i0-MCH" secondAttribute="top" id="RFQ-TY-aDA"/>
                                     <constraint firstItem="diW-j4-x2z" firstAttribute="leading" secondItem="KCh-i0-MCH" secondAttribute="leading" id="aYr-bE-e1a"/>
                                     <constraint firstItem="diW-j4-x2z" firstAttribute="centerX" secondItem="KCh-i0-MCH" secondAttribute="centerX" id="aZJ-u8-j1s"/>
                                     <constraint firstItem="diW-j4-x2z" firstAttribute="centerY" secondItem="KCh-i0-MCH" secondAttribute="centerY" id="f2O-ZE-Drs"/>
                                     <constraint firstAttribute="trailing" secondItem="diW-j4-x2z" secondAttribute="trailing" id="nnA-Tm-3qY"/>
+                                    <constraint firstItem="wDl-Pf-aVf" firstAttribute="centerX" secondItem="fBl-BX-czm" secondAttribute="centerX" id="qSU-dM-Btz"/>
                                     <constraint firstItem="diW-j4-x2z" firstAttribute="height" secondItem="KCh-i0-MCH" secondAttribute="height" id="wQO-J2-DmX"/>
                                 </constraints>
                             </scrollView>
@@ -261,6 +272,7 @@
                         <viewLayoutGuide key="safeArea" id="ojj-Df-frA"/>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="wDl-Pf-aVf" id="vPE-oD-QnH"/>
                         <outlet property="movieID" destination="iCq-56-qYl" id="hSP-CI-vgS"/>
                         <outlet property="movieImage" destination="fBl-BX-czm" id="gLB-Hy-d1u"/>
                         <outlet property="movieOverView" destination="jE1-L3-f6n" id="sR9-fS-tIx"/>
