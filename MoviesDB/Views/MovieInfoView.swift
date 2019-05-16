@@ -55,7 +55,6 @@ class MovieInfoView: UIViewController {
             }else {
                 print(error?.localizedDescription as Any)
             }
-            
             }.resume()
         }
     }
