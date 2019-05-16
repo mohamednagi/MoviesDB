@@ -18,6 +18,13 @@ class MovieCell: UITableViewCell {
     
     func setupMoviesCell(indexpath:IndexPath) {
         ServiceLayer.getMovies { (returnedMovies) in
+           
+            if UserDefaults.standard.value(forKey: returnedMovies[indexpath.row].poster_path ?? "" ) != nil {
+                let movieImage = UserDefaults.standard.value(forKey: returnedMovies[indexpath.row].poster_path ?? "")
+                DispatchQueue.main.async {
+                    self.movieImage.image = UIImage(data:movieImage as! Data)
+                }
+            }else {
             guard let imagePath = returnedMovies[indexpath.row].poster_path else {return}
             guard let imageUrl = URL(string: imagePath) else {return}
                 URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, _, error) in
@@ -25,12 +32,15 @@ class MovieCell: UITableViewCell {
                         guard let data = data else {return}
                             DispatchQueue.main.async {
                                 self.movieImage.image = UIImage(data: data)
+                                let imageData = self.movieImage.image!.jpegData(compressionQuality: 1.0)
+                                UserDefaults.standard.setValue(imageData, forKey: "\(imagePath)")
                             }
                         
                     }else {
                         print(error?.localizedDescription as Any)
                     }
             }).resume()
+            }
             DispatchQueue.main.async {
                 self.movieTitle.text = returnedMovies[indexpath.row].title
                 self.movieVoteRate.text = String(describing: returnedMovies[indexpath.row].vote_average!)

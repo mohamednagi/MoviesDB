@@ -37,6 +37,13 @@ class MovieInfoView: UIViewController {
         movieReleaseDate.text = clickedMovie.release_date
         movieVoteAverage.text = String(describing: clickedMovie.vote_average!)
         
+        if UserDefaults.standard.value(forKey: clickedMovie.poster_path ?? "") != nil {
+            let imageData = UserDefaults.standard.value(forKey: clickedMovie.poster_path ?? "")
+            DispatchQueue.main.async {
+                self.movieImage.image = UIImage(data: imageData as! Data)
+            }
+        }else {
+        
         guard let imageUrl = URL(string: clickedMovie.poster_path!) else {return}
         URLSession.shared.dataTask(with: imageUrl) { (data, _, error) in
             if error == nil {
@@ -48,7 +55,7 @@ class MovieInfoView: UIViewController {
                 print(error?.localizedDescription as Any)
             }
             }.resume()
-        
+        }
     }
     
     

@@ -52,7 +52,6 @@ class MoviesViewController: UIViewController,UITableViewDelegate,UITableViewData
          let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let destinationVC = storyboard.instantiateViewController(withIdentifier: "MovieInfoView") as? MovieInfoView else {return}
         destinationVC.clickedMovie = moviesList[indexPath.row]
-        
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
