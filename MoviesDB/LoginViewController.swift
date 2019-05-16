@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         loginBu.layer.cornerRadius = 6
+        registerBu.layer.cornerRadius = 6
     }
     
     func errorMessage(title: String, message: String) {
@@ -45,11 +46,13 @@ class LoginViewController: UIViewController {
         if (emailTxtField.text?.isValidEmail())! {
             if passwordTxtField.text != "" {
                 Auth.auth().signIn(withEmail: emailTxtField.text!, password: passwordTxtField.text!) { [weak self] user, error in
-//                    guard let strongSelf = self else { return }
-//                    print(strongSelf)
+                    if user != nil {
                     defaults.set(self!.emailTxtField.text!, forKey: "userEmail")
                     ServiceLayer.walkMeHome(view: self!)
-                }
+                    } else {
+                        self!.errorMessage(title: "Error", message: (error?.localizedDescription)!)
+                    }
+                } //mohamed.nagi@brightcreations.com
             }else {
                 errorMessage(title: "Error", message: "please enter valid password")
             }
